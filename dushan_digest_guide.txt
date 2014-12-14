@@ -1,0 +1,33 @@
+Dushan Karovich-Wynne (E09962)
+Web Servers & Web Technology
+Semester 2, 2013
+
+How to compile Digest into Apache?
+
+===== Compile Time =====
+./configure --prefix=/iweb/$USER/apache2 --enable-so --with-mpm=prefork --with-port=<yourport> --enable-ssl --enable-auth-digest
+make
+make install
+
+===== As a DSO =====
+1: ssh iweb1.cs.rmit.edu.au
+2: pkill httpd
+3: cd /iweb/$USER
+4: wget <URL>
+5: cd /iweb/$USER/<yourapachefolder>/bin
+6: ./apxs -i -a -c /iweb/$USER/mod_auth_digest.c
+7: ./apachectl start
+
+===== Generate htpasswd file =====
+cd /iweb/$USER
+/iweb/$USER/<yourapachefolder>/bin/htdigest –c <passwdfile> <realm> <username>
+
+===== Example Location Directive =====
+<Location /path/to/folder/we/want/to/protect/>
+    AuthType Digest
+    AuthName “<realm>”
+    AuthDigestDomain /path/to/folder/we/want/to/protect/
+    AuthDigestFile /path/to/file/created/by/htdigest/tool/
+    Require valid-user
+</Location>
+
