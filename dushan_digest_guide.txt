@@ -13,7 +13,7 @@ make install
 1: ssh iweb1.cs.rmit.edu.au
 2: pkill httpd
 3: cd /iweb/$USER
-4: wget <URL>
+4: wget --no-check-certificate https://raw.githubusercontent.com/dushankw/WSWT/master/mod_auth_digest.c
 5: cd /iweb/$USER/<yourapachefolder>/bin
 6: ./apxs -i -a -c /iweb/$USER/mod_auth_digest.c
 7: ./apachectl start
